@@ -53,10 +53,15 @@ ggplot(data = datos, aes(x = phagocitosis_fraction)) +
   scale_x_continuous(limits = c(0, 1)) +
   scale_y_continuous(limits = c(0, 60))
 
-
 #create scatterplot of phagolysosome vs phenotype, using sex as color variable
+
 ggplot(data=datos, aes(x=phagolysosome_area, y=phenotype, color=sex)) + 
   geom_point()
+
+ggplot(data = datos, aes(x = phenotype, y = phagolysosome_fraction)) +
+  geom_point() +
+  labs(x = "Phenotype", y = "Phagolysosome_area") +
+  ggtitle("Diagrama de Dispersión: Phenotype vs. Phagosome_area")
 
 
 
@@ -70,7 +75,39 @@ ggplot(data = datos, aes(x = phenotype, y = phagolysosome_fraction)) +
 #4.Correlation test.
 
 
+### Usando la función cor.test() para el test de correlación de Pearson
+cor_test_pearson <- cor.test(datos$phenotype, datos$phagocitosis_fraction, method = "pearson")
+
+# Imprimir los resultados
+print(cor_test_pearson)
+
+
 # Test de Mann-Whitney with approximate method
 mann_whitney <- wilcox.test(phagolysosome_area ~ phenotype, data = datos, exact = FALSE)
 
 # Print the results
+print(mann_whitney)
+
+
+
+
+
+
+
+
+
+
+#ANOVA CRUZADO CON INTERACCION 
+
+
+
+###ANOVA
+
+# Realizar el test ANOVA con interacción
+modelo_anova <- aov(phagocitosis_fraction ~ phenotype * sex, data = datos)
+
+# Obtener un resumen de los resultados
+resultado_anova <- summary(modelo_anova)
+
+# Imprimir el resumen del ANOVA
+print(resultado_anova)
