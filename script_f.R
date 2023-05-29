@@ -76,7 +76,7 @@ ggplot(data = datos, aes(x = phenotype, y = phagolysosome_fraction)) +
 
 
 ### Usando la función cor.test() para el test de correlación de Pearson
-cor_test_pearson <- cor.test(datos$phenotype, datos$phagocitosis_fraction, method = "pearson")
+cor_test_pearson <- cor.test(datos$phenotype, datos$phagolysosome_area, method = "pearson")
 
 # Imprimir los resultados
 print(cor_test_pearson)
